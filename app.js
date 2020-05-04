@@ -21,7 +21,8 @@ async function allMovies() {
         detail(movies);
         
     }catch(error) {
-        console.log("No results found")
+        console.log("No results found");
+        movieContainer.innerHTML = '<h1>No results found</h1>';
     }
 
     
@@ -63,6 +64,7 @@ async function searchMovie(movie) {
         document.querySelector("#name").value = "";
     }catch(error) {
         console.log(error);
+        movieContainer.innerHTML = '<h1>No results found</h1>';
     }
     
 }
@@ -72,13 +74,19 @@ async function searchMovie(movie) {
 //Display searched movies
 async function displaySearchedMovies(movies) {
     let movieContainer = document.querySelector(".movie-container");
-    movieContainer.innerHTML = '';
+    try{
+        let movieContainer = document.querySelector(".movie-container");
+        movieContainer.innerHTML = '';
 
-    movies.forEach(item => {
-        movieContainer.innerHTML += `<div class="col-sm-3 movie mt-4"><div class="view"><button class="viewButton">View Details</button>
-                                    </div><img src="${item.medium_cover_image}" class="img-fluid" alt=""></div>`;
-    })
-    detail(movies);
+        movies.forEach(item => {
+            movieContainer.innerHTML += `<div class="col-sm-3 movie mt-4"><div class="view"><button class="viewButton">View Details</button>
+                                        </div><img src="${item.medium_cover_image}" class="img-fluid" alt=""></div>`;
+        })
+        detail(movies);
+    }catch {
+        movieContainer.innerHTML = "<h1 class='text-white p-4'>No results found</h1>";
+    }
+    
     
 }
 
